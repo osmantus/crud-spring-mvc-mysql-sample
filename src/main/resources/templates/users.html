@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>CRUD Application</title>
+
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+    <div th:if="${not #lists.isEmpty(users)}">
+        <h2>User List</h2>
+
+        <div class="row">
+            <div th:if="${users.getTotalPages() != 1}" class="form-group col-md-11">
+                <ul class="pagination">
+                    <td th:class="${users.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/users?(pageSize=${selectedPageSize}, page=1)}">&laquo;&nbsp;</a></td>
+                    <td th:class="${users.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{/users?(pageSize=${selectedPageSize}, page=${users.getNumber() == 0 ? 1 : users.getNumber()})}">&nbsp;&larr;&nbsp;</a></td>
+                    <td th:class="${users.getNumber() == (page - 1)} ? 'active pointer-disabled'"
+                        th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}"><a class="pageLink" th:href="@{/users?(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a></td>
+                    <td th:class="${users.getNumber() + 1 == users.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/users?(pageSize=${selectedPageSize}, page=${users.getNumber()+2 &lt; users.getTotalPages() ? users.getNumber()+2 : users.getTotalPages()})}">&nbsp;&rarr;&nbsp;</a></td>
+                    <td th:class="${users.getNumber() + 1 == users.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{/users?(pageSize=${selectedPageSize}, page=${users.getTotalPages()})}">&nbsp;&raquo;</a></td>
+                </ul>
+            </div>
+        </div>
+
+        <table class="table table-striped">
+            <tr>
+                <th>User Id</th>
+                <th>User Name</th>
+                <th>Age</th>
+                <th>Is Admin</th>
+                <th>Created Date</th>
+                <th>View</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            <tr th:each="user : ${users}" th:onclick="|window.open('${'/user/' + user.id}', '_self')|">
+                <td th:text="${user.id}">User Id</td>
+                <td th:text="${user.name}">User Name</td>
+                <td th:text="${user.age}">Age</td>
+                <td data-label="Is Admin"><input type="checkbox" disabled="disabled" th:checked="${#bools.isTrue(user.isAdmin)}"/></td>
+                <td th:text="${#temporals.format(user.createdDate, 'dd.MM.yyyy HH:mm:ss')}">Created Date</td>
+                <td><a th:href="${ '/user/' + user.id}">View</a></td>
+                <td><a th:href="${'/user/edit/' + user.id}">Edit</a></td>
+                <td><a th:href="${'/user/delete/' + user.id}">Delete</a></td>
+            </tr>
+        </table>
+
+    </div>
+
+</div>
+
+</body>
+</html>

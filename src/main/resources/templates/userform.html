@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+
+    <title>CRUD Application</title>
+
+</head>
+<body>
+<div class="container">
+    <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
+
+    <h2>User Details</h2>
+    <div>
+        <form class="form-horizontal" th:object="${user}" th:action="@{/user}" method="post">
+            <div class="form-group">
+                <label>User Id:</label>
+                <input type="number" readonly="readonly" th:field="*{id}" id="id" name="id"/>
+            </div>
+            <div class="form-group">
+                <label>Name:</label>
+                <input type="text" th:field="*{name}" id="name" name="name"/>
+            </div>
+            <div class="form-group">
+                <label>Age:</label>
+                <input type="number" th:field="*{age}" id="age" name="age"/>
+            </div>
+            <div class="form-group">
+                <label>Is Admin:</label>
+                <input type="checkbox" th:field="*{isAdmin}" id="isAdmin" name="isAdmin"/>
+            </div>
+            <div class="input-group">
+                <label>Created Date:</label>
+                <!--<input type="datetime" th:value="${#temporals.format(user.createdDate, 'dd.MM.yyyy HH:mm:ss')}" id="createdDate" name="createdDate"/>-->
+                <input type="datetime" disabled="disabled" th:field="${{user.createdDate}}" id="createdDate" name="createdDate"/>
+            </div>
+
+            <div class="row">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

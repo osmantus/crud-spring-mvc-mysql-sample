@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    
+</head>
+<body>
+
+<div class="container">
+    <div class="row text-center">
+        <div class="">
+            <h2>CRUD Application</h2>
+        </div>
+    </div>
+
+    <div th:fragment="header">
+        <script>
+            function onChangeSearchableText() {
+                var searchableText = document.getElementById("searchableText").value.toString();
+                document.getElementById("findUserLink").setAttribute("href", "/user/find/" + searchableText);
+            }
+        </script>
+
+        <a class="navbar-brand" href="#" th:href="@{/}">Home</a>
+        <ul class="nav navbar-nav">
+            <li><a href="#" th:href="@{/users}">Users</a></li>
+            <li><a href="#" th:href="@{/user/new}">Create User</a></li>
+            <li><a id="findUserLink">Find User</a>  &emsp;   User Name: <input onchange="onChangeSearchableText()" oninput="onChangeSearchableText()" id="searchableText" type="text" title="type any text here to find the user names"/></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

@@ -3,15 +3,11 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>CRUDApp2</groupId>
+	<groupId>crud-spring-mvc-sample</groupId>
 	<artifactId>ArtID</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<name>crud-spring-mvc-sample</name>
     <packaging>jar</packaging>
-
-	<prerequisites>
-		<maven>3</maven>
-	</prerequisites>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>

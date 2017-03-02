@@ -14,12 +14,12 @@
         <div class="row">
             <div th:if="${users.getTotalPages() != 1}" class="form-group col-md-11">
                 <ul class="pagination">
-                    <li th:class="${users.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{'/user/find/'+${searchText}+'?pageSize='+${selectedPageSize}+ '&amp;' + 'page=1'}">&laquo;</a></li>
-                    <li th:class="${users.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{'/user/find/'+${searchText}+'?pageSize='+${selectedPageSize}+ '&amp;' + 'page='+${users.getNumber() == 0 ? 1 : users.getNumber()}}">&nbsp;&larr;&nbsp;</a></li>
-                    <li th:class="${users.getNumber() == (page - 1)} ? 'active pointer-disabled'"
-                        th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}"><a class="pageLink" th:href="@{'/user/find/'+${searchText}+'?pageSize='+${selectedPageSize}+ '&amp;' + 'page='+${page}}" th:text="${page}"></a></li>
-                    <li th:class="${users.getNumber() + 1 == users.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{'/user/find/'+${searchText}+ '?pageSize='+${selectedPageSize}+ '&amp;' + 'page='+${users.getNumber()+2 &lt; users.getTotalPages() ? users.getNumber()+2 : users.getTotalPages()}}">&nbsp;&rarr;&nbsp;</a></li>
-                    <li th:class="${users.getNumber() + 1 == users.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{'/user/find/'+${searchText}+'?pageSize='+${selectedPageSize}+ '&amp;' + 'page='+${users.getTotalPages()}}">&nbsp;&raquo;</a></li>
+                    <td th:class="${users.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{'/user/find/'+${searchText}+'?pageSize='+${selectedPageSize}+ '&amp;' + 'page=1'}">&laquo;</a></td>
+                    <td th:class="${users.getNumber() == 0} ? disabled"><a class="pageLink" th:href="@{'/user/find/'+${searchText}+'?pageSize='+${selectedPageSize}+ '&amp;' + 'page='+${users.getNumber() == 0 ? 1 : users.getNumber()}}">&nbsp;&larr;&nbsp;</a></td>
+                    <td th:class="${users.getNumber() == (page - 1)} ? 'active pointer-disabled'"
+                        th:each="page : ${#numbers.sequence(pager.getStartPage(), pager.getEndPage())}"><a class="pageLink" th:href="@{'/user/find/'+${searchText}+'?pageSize='+${selectedPageSize}+ '&amp;' + 'page='+${page}}" th:text="${page}"></a></td>
+                    <td th:class="${users.getNumber() + 1 == users.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{'/user/find/'+${searchText}+ '?pageSize='+${selectedPageSize}+ '&amp;' + 'page='+${users.getNumber()+2 &lt; users.getTotalPages() ? users.getNumber()+2 : users.getTotalPages()}}">&nbsp;&rarr;&nbsp;</a></td>
+                    <td th:class="${users.getNumber() + 1 == users.getTotalPages()} ? disabled"><a class="pageLink" th:href="@{'/user/find/'+${searchText}+'?pageSize='+${selectedPageSize}+ '&amp;' + 'page='+${users.getTotalPages()}}">&nbsp;&raquo;</a></td>
                 </ul>
             </div>
         </div>

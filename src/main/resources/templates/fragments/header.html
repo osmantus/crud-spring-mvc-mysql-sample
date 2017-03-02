@@ -16,7 +16,10 @@
         <script>
             function onChangeSearchableText() {
                 var searchableText = document.getElementById("searchableText").value.toString();
-                document.getElementById("findUserLink").setAttribute("href", "/user/find/" + searchableText);
+                if (searchableText.trim() == "")
+                    document.getElementById("findUserLink").setAttribute("href", "");
+                else
+                    document.getElementById("findUserLink").setAttribute("href", "/user/find/" + searchableText);
             }
         </script>
 

@@ -20,6 +20,7 @@ public class User
 
     public User()
     {
+        this.createdDate = LocalDateTime.now();
     }
 
     public User(String name, int age, boolean isAdmin) {

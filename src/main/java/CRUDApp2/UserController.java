@@ -105,28 +105,43 @@ public class UserController
     public ModelAndView findByUserName(@PathVariable String name, @RequestParam(value = "pageSize", required = false) Integer pageSize, @RequestParam(value = "page", required = false) Integer page){
         //List<User> users = iUserModel.findByName(name);
 
-        ModelAndView modelAndView = new ModelAndView("users_after_find");
+        ModelAndView modelAndView = null;
 
-        int evalPageSize = pageSize == null ? INITIAL_PAGE_SIZE : pageSize;
-        int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
+        if (!name.equals("")) {
+            int evalPageSize = pageSize == null ? INITIAL_PAGE_SIZE : pageSize;
+            int evalPage = (page == null || page < 1) ? INITIAL_PAGE : page - 1;
 
-        Page<User> users = iUserModel.findByNameContainingStr(name, new PageRequest(evalPage, evalPageSize));
-        //Pager pager = new Pager(users.getTotalPages(), users.getNumber(), BUTTONS_TO_SHOW);
+            Page<User> users = iUserModel.findByNameContainingStr(name, new PageRequest(evalPage, evalPageSize));
+            //Pager pager = new Pager(users.getTotalPages(), users.getNumber(), BUTTONS_TO_SHOW);
 
-        Pager pager = null;
-        if (users != null) {
-            if (!users.isLast()) {
-                pager = new Pager(users.getTotalPages(), users.getNumber(), BUTTONS_TO_SHOW);
-            } else {
-                users = iUserModel.findByNameContainingStr(name, new PageRequest(users.getTotalPages() - 1, evalPageSize));
-                pager = new Pager(users.getTotalPages(), users.getTotalPages() - 1, BUTTONS_TO_SHOW);
+            Pager pager = null;
+            if (users != null) {
+                if (!users.isLast()) {
+                    pager = new Pager(users.getTotalPages(), users.getNumber(), BUTTONS_TO_SHOW);
+                } else {
+                    if (users.getTotalPages() >= 1) {
+                        users = iUserModel.findByNameContainingStr(name, new PageRequest(users.getTotalPages() - 1, evalPageSize));
+                        pager = new Pager(users.getTotalPages(), users.getTotalPages() - 1, BUTTONS_TO_SHOW);
+                    }
+                }
+            }
+
+            if (users.getTotalElements() <= 0) {
+                modelAndView = new ModelAndView("search_without_results");
+                modelAndView.addObject("searchText", name);
+            }
+            else {
+                modelAndView = new ModelAndView("users_after_find");
+                modelAndView.addObject("users", users);
+                modelAndView.addObject("searchText", name);
+                modelAndView.addObject("selectedPageSize", evalPageSize);
+                modelAndView.addObject("pager", pager);
             }
         }
-
-        modelAndView.addObject("users", users);
-        modelAndView.addObject("searchText", name);
-        modelAndView.addObject("selectedPageSize", evalPageSize);
-        modelAndView.addObject("pager", pager);
+        else {
+            modelAndView = new ModelAndView("search_without_results");
+            modelAndView.addObject("searchText", name);
+        }
 
         return modelAndView;
     }

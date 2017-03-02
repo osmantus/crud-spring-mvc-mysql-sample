@@ -9,7 +9,7 @@
 <div class="container">
     <!--/*/ <th:block th:include="fragments/header :: header"></th:block> /*/-->
     <div th:if="${not #lists.isEmpty(users)}">
-        <h2>Search results on User List</h2>
+        <h2>Search results on <td th:text="${searchText}"></td> in User List</h2>
 
         <div class="row">
             <div th:if="${users.getTotalPages() != 1}" class="form-group col-md-11">
